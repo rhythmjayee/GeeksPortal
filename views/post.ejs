@@ -1,0 +1,131 @@
+<!-- < include("partials/header") %> -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Editor</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/theme.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css "
+    />
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+    
+<!-- <link rel="stylesheet" href="/froalacss">
+    <script src="/froalajs"></script> -->
+    <script src="ckeditor/ckeditor.js"></script>
+
+  </head>
+</html>
+<body class="bg-light">
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h1 class="card-header text-center">Article: <%= Head %></h1>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <h5 class="card-title">Language:<span><%= Lang %></span></h5>
+                        </div>
+                        <div class="col-3 ml-auto">
+                            <h5 class="card-title">Difficulty Level:<span><%= Lvl %></span></h5>
+                        </div>
+                    </div>
+                    <div id="HTML">
+                        <div id="h" class="d-none"><%= Body %></div>
+                    </div>
+                    <% if(type==="Puzzle"){%>
+                        <div class="row" style="margin-top: 100px;">
+                            <div class="col-12">
+                                <h5>Solution:</h5>
+                                <div class="row">
+                                  <div class="col-12" id="HTML1" >
+                                      <div id="h1" class="d-none"><%=sol %></div>
+                                  </div>
+                                  <script>
+                                    var txt=document.getElementById("h1").textContent;
+                                        document.getElementById("HTML1").innerHTML=txt;
+                                </script>
+                              </div>
+                            </div>
+                        </div>
+                        <% } %> 
+                    
+                  </div>
+                  <div class="card-footer">
+                    <div class="col-4 ml-auto">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="/edit/<%= type %>-<%= postId %>"><button type="button" class="btn btn-warning">EDIT</button></a> 
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">REJECT</button>
+                            <% if(ReviewerLevel===0){ %>
+                                <a href="/save/<%= type %>-<%= postId %>-<%= ReviewerLevel %> "> <button type="button" class="btn btn-warning">PROMOTE</button></a>
+                                <%  } else{%> 
+                                    <a href="/save/<%= type %>-<%= postId %>-<%= ReviewerLevel %>"> <button type="button" class="btn btn-warning">ACCEPT</button></a>
+                                <% } %> 
+                          </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Please provide reason of rejection</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/delete/<%= type %>-<%= postId %>" method="POST">
+                            <div class="form-group">
+                                <textarea class="form-control" name="reason" placeholder="write here..." rows="5" required></textarea>                            </div>
+                            
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                              </div>                         
+                             </form>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <script src="./ckeditor/ckeditor.js"></script> -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        var txt=document.getElementById("h").textContent;
+            document.getElementById("HTML").innerHTML=txt;
+    </script>
+    </body>
+</html>
+ <!-- %- include("partials/footer") %>  -->
